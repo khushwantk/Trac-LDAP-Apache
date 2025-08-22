@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logout Complete - Trac</title>
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logout-container {
+        background: white;
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+      }
+
+      .success-icon {
+        color: #28a745;
+        font-size: 4rem;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        font-weight: 300;
+      }
+
+      .message {
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .login-again-btn {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .login-again-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        text-decoration: none;
+        color: white;
+      }
+
+      .security-note {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 1rem;
+        margin-top: 2rem;
+        text-align: left;
+        border-radius: 0 5px 5px 0;
+      }
+
+      .security-note h3 {
+        margin: 0 0 0.5rem 0;
+        color: #1976d2;
+        font-size: 1rem;
+      }
+
+      .security-note p {
+        margin: 0;
+        color: #555;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logout-container">
+      <div class="success-icon">✓</div>
+      <h1>Logout Complete</h1>
+      <div class="message">
+        Your session has been completely terminated. All authentication data has
+        been cleared from the server and your browser.
+      </div>
+
+      <a href="/login" class="login-again-btn">Login Again</a>
+    </div>
+
+    <script>
+      // Comprehensive cleanup on logout
+      (function () {
+        // Clear all cookies for this domain
+        document.cookie.split(";").forEach(function (c) {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(
+              /=.*/,
+              "=;expires=" +
+                new Date().toUTCString() +
+                ";path=/;domain=" +
+                location.hostname
+            );
+        });
+
+        // Clear localStorage and sessionStorage
+        if (typeof Storage !== "undefined") {
+          localStorage.clear();
+          sessionStorage.clear();
+        }
+
+        // Clear any service workers
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .getRegistrations()
+            .then(function (registrations) {
+              for (let registration of registrations) {
+                registration.unregister();
+              }
+            });
+        }
+
+        // Clear browser caches where possible
+        if ("caches" in window) {
+          caches.keys().then(function (names) {
+            names.forEach(function (name) {
+              caches.delete(name);
+            });
+          });
+        }
+
+        // Replace current history entry
+        if (window.history.replaceState) {
+          window.history.replaceState(null, null, "/logout-complete");
+        }
+
+        // Prevent back button from accessing authenticated pages
+        window.onpopstate = function (e) {
+          window.location.href = "/login";
+        };
+
+        window.location.href = "/login";
+
+        // Auto-redirect after 30 seconds
+        //setTimeout(function() {
+        //  window.location.href = '/login';
+        //}, 3000);
+      })();
+    </script>
+  </body>
+</html>

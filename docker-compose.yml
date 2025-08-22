@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  trac:
+    build: .
+    container_name: trac
+    volumes:
+      - trac_env:/opt/trac/env
+    restart: unless-stopped
+    networks:
+      - superset-network
+    ports:
+      - 8123:8123
+
+
+
+volumes:
+  trac_env:
+
+networks:
+  superset-network:
+    external: true
