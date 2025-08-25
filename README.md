@@ -1,5 +1,12 @@
 # Trac-LDAP-Apache
 
+trac.ini : Trac's setting/config file
+
+trac.conf: Apache config
+
+Login/logout : Pages that will be loaded while login & logout
+
+
 Debugging:
 
 trac-admin /var/local/trac session list
