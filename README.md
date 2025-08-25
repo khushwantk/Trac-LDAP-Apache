@@ -6,8 +6,14 @@ trac.conf: Apache config
 
 Login/logout : Pages that will be loaded while login & logout
 
+Setup:
+- Compose up the OpenLDAP container
+- Change the URL of OpenLDAP server in trac.conf
+- Compose up Trac
 
-Debugging:
+## Debugging:
+
+Check if OpenLDAP is reachable from Trac's container : ping ldap://openldap:389
 
 trac-admin /var/local/trac session list
 
