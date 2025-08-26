@@ -1,5 +1,9 @@
 # Trac-LDAP-Apache
 
+Created a secure integration of Apache and OpenLDAP for authenticating users in Trac Issue Tracker.
+
+Used Apache mod_authnz_ldap and mod_auth_form for handling login/logout with session cookies.
+
 trac.ini : Trac's setting/config file
 
 trac.conf: Apache config
