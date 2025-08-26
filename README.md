@@ -2,6 +2,8 @@
 
 Created a secure integration of Apache and OpenLDAP for authenticating users in Trac Issue Tracker.
 
+Also created a Dockerfile for Trac as there is no official docker image.
+
 Used Apache mod_authnz_ldap and mod_auth_form for handling login/logout with session cookies.
 
 trac.ini : Trac's setting/config file
