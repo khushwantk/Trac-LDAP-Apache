@@ -1,5 +1,7 @@
 # Trac-LDAP-Apache
 
+[Blog Post](https://medium.com/@khushwantk/implementing-ldap-authentication-for-trac-both-dockerized-via-apache-efe02a72023a)
+
 Created a secure integration of Apache and OpenLDAP for authenticating users in Trac Issue Tracker.
 
 Also created a Dockerfile for Trac as there is no official docker image.
